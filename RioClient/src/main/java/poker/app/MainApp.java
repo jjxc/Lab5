@@ -252,9 +252,8 @@ public class MainApp extends Application {
 				}
 				else if (message instanceof Table)
 				{
-					//TODO: If the message is a Table, run the 
-					//		method Handle_TableState in the 
-					//		pokerController.
+					Table table = (Table)message;
+					pokerController.Handle_TableState(table);
 				}
 				pokerController.MessageFromMainApp((String)message);
 			});

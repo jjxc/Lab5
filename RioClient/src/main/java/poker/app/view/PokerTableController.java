@@ -1,6 +1,7 @@
 package poker.app.view;
 
 import java.net.URL;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 
 import javafx.animation.FadeTransition;
@@ -16,6 +17,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.util.Duration;
+import netgame.common.Client;
 import poker.app.MainApp;
 import pokerBase.Action;
 import pokerBase.Table;
@@ -114,7 +116,7 @@ public class PokerTableController implements Initializable {
 			case "btnPos3SitLeave":
 				iPlayerPosition = ePlayerPosition.THREE.getiPlayerPosition();
 				break;
-			case "btnPos4SitLeave":
+			case "btnPos4itLeave":
 				iPlayerPosition = ePlayerPosition.FOUR.getiPlayerPosition();
 				break;
 			}
@@ -137,13 +139,34 @@ public class PokerTableController implements Initializable {
 	}
 
 	public void Handle_TableState(Table HubPokerTable) {
-
-		//TODO: If this message is called, that means there
-		//		was a change to the state of the Table (player
-		//		probably ran 'sit' or 'leave'
-		//		The Table was updated, you just have to refresh the
-		//		UI controls to show the current state of the 
-		//		Table object
+	//	HashMap players = HubPokerTable.getHashPlayers();
+		switch (mainApp.getPlayer().getiPlayerPosition())	{
+		case 1:
+			btnPos1SitLeave.setSelected(true);
+			btnPos2SitLeave.setVisible(false);
+			btnPos3SitLeave.setVisible(false);
+			btnPos4SitLeave.setVisible(false);
+			break;
+		case 2:
+			btnPos1SitLeave.setVisible(false);
+			btnPos2SitLeave.setSelected(true);
+			btnPos3SitLeave.setVisible(false);
+			btnPos4SitLeave.setVisible(false);
+			break;
+		case 3:
+			btnPos1SitLeave.setVisible(false);
+			btnPos2SitLeave.setVisible(false);
+			btnPos3SitLeave.setSelected(true);
+			btnPos4SitLeave.setVisible(false);
+			break;
+		case 4:
+			btnPos1SitLeave.setVisible(false);
+			btnPos2SitLeave.setVisible(false);
+			btnPos3SitLeave.setVisible(false);
+			btnPos4SitLeave.setSelected(true);
+			break;
+	}
+		
 		
 		//TODO: run the 'getHashPlayers' method, iterate 
 		//		for all players and update the player label
@@ -157,8 +180,8 @@ public class PokerTableController implements Initializable {
 	@FXML
 	void btnStart_Click(ActionEvent event) {
 		// Start the Game
-		//TODO: Create an instance of Action, Action = StartGame
-		//		Send the message to the hub
+		Action start = new Action();
+		start.setAction(eAction.StartGame);
 	}
 
 	@FXML
